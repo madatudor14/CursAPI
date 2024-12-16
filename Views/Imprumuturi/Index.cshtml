@@ -1,0 +1,60 @@
+﻿@model IEnumerable<LibraryProject.Models.Imprumuturi>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_Layout";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary ">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DataImprumut)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataReturnare)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdCarteNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdUtilizatorNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataImprumut)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataReturnare)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdCarteNavigation.IdCarte)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdUtilizatorNavigation.IdUtilizator)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdImprumut">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdImprumut">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdImprumut">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

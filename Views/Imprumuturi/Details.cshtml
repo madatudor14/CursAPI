@@ -1,0 +1,49 @@
+﻿@model LibraryProject.Models.Imprumuturi
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "_Layout";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Imprumuturi</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DataImprumut)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DataImprumut)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DataReturnare)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DataReturnare)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdCarteNavigation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdCarteNavigation.IdCarte)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdUtilizatorNavigation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdUtilizatorNavigation.IdUtilizator)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.IdImprumut">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

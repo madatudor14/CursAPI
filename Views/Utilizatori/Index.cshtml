@@ -1,0 +1,60 @@
+﻿@model IEnumerable<LibraryProject.Models.Utilizatori>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_Layout";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary ">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NumeUtilizator)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrenumeUtilizator)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Telefon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataInregistrare)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumeUtilizator)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrenumeUtilizator)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataInregistrare)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdUtilizator">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdUtilizator">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdUtilizator">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
