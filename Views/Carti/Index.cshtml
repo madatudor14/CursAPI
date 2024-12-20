@@ -5,11 +5,25 @@
     Layout = "_Layout";
 }
 
+
+
 <h1>Index</h1>
 
 <p>
     <a asp-action="Create" class="btn btn-primary ">Adauga Carte noua</a>
 </p>
+
+<div>
+    <form id="searchForm" method="get" class="flex-grow-1">
+        <div class="d-flex align-items-center">
+            <input type="text" id="searchFilter" name="searchFilter" class="form-control form-control-sm me-2"
+                   placeholder="Caută după nume, tip sau serie..." value="@ViewBag.SearchString" />
+            <button type="submit" class="btn btn-success btn-sm me-2">Caută</button>
+            <a href="@Url.Action("Index", new { pageSize = ViewBag.PageSize })" class="btn btn-secondary btn-sm">Resetează</a>
+        </div>
+    </form>
+</div>
+
 <table class="table">
     <thead>
         <tr>
@@ -35,32 +49,47 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Titlu)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AnPublicare)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumarPagini)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StocDisponibil)
-            </td>
-            <td>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Titlu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AnPublicare)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumarPagini)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StocDisponibil)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.IdAutorNavigation.NumeAutor)  @Html.DisplayFor(modelItem => item.IdAutorNavigation.PrenumeAutor)
-            </td>
-            <td>
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.IdCategorieNavigation.NumeCategorie)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdCarte">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdCarte">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdCarte">Delete</a>
-            </td>
-        </tr>
-}
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.IdCarte">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.IdCarte">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdCarte">Delete</a>
+                </td>
+            </tr>
+        }
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                @TempData["ErrorMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
     </tbody>
 </table>
+
+<script>
+        document.addEventListener("DOMContentLoaded", function () {
+         const searchForm = document.getElementById("searchForm");
+    });
+</script>

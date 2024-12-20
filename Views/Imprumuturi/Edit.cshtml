@@ -16,7 +16,9 @@
             <input type="hidden" asp-for="IdImprumut" />
             <div class="form-group">
                 <label asp-for="IdCarte" class="control-label"></label>
-                <select asp-for="IdCarte" class="form-control" asp-items="ViewBag.IdCarte"></select>
+                <select asp-for="IdCarte" class="form-control" asp-items="ViewBag.IdCarte">
+                   
+                </select>
                 <span asp-validation-for="IdCarte" class="text-danger"></span>
             </div>
             <div class="form-group">

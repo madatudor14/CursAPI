@@ -138,6 +138,13 @@ namespace LibraryProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var hasUsed = _context.Carti.Any(i => i.IdCarte== id);
+            if (hasUsed)
+            {
+                TempData["ErrorMessage"] = "Categoria nu poate fi stearsa deoarece este alocata unei carti";
+                return RedirectToAction(nameof(Index));
+            }
+
             var categorii = await _context.Categorii.FindAsync(id);
             if (categorii != null)
             {

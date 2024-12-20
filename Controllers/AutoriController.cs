@@ -118,6 +118,7 @@ namespace LibraryProject.Controllers
         // GET: Autori/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            
             if (id == null)
             {
                 return NotFound();
@@ -138,6 +139,12 @@ namespace LibraryProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var hasUsed = _context.Imprumuturi.Any(i => i.IdCarte == id);
+            if (hasUsed)
+            {
+                TempData["ErrorMessage"] = "Autorul nu poate fi sters deoarece este alocat unei carti";
+                return RedirectToAction(nameof(Index));
+            }
             var autori = await _context.Autori.FindAsync(id);
             if (autori != null)
             {

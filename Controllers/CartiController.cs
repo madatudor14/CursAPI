@@ -20,15 +20,27 @@ namespace LibraryProject.Controllers
         }
 
         // GET: Carti
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchFilter)
         {
-            var bibliotecaContext = _context.Carti.Include(c => c.IdAutorNavigation).Include(c => c.IdCategorieNavigation);
-            return View(await bibliotecaContext.ToListAsync());
+            var books = _context.Carti.AsQueryable();
+
+            if(!string.IsNullOrEmpty(searchFilter))
+            {
+                string lowerSearchString = searchFilter.ToLower();
+                 books = books.Where(d => d.Titlu.ToLower().Contains(lowerSearchString));
+            }
+
+            ViewBag.SearchString = searchFilter;
+
+            return View(books);
         }
 
         // GET: Carti/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            
+
+
             if (id == null)
             {
                 return NotFound();
@@ -141,6 +153,7 @@ namespace LibraryProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            
             var carti = await _context.Carti.FindAsync(id);
             if (carti != null)
             {
@@ -155,5 +168,9 @@ namespace LibraryProject.Controllers
         {
             return _context.Carti.Any(e => e.IdCarte == id);
         }
+
+       
+
+
     }
 }

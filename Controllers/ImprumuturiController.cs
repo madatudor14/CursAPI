@@ -48,8 +48,8 @@ namespace LibraryProject.Controllers
         // GET: Imprumuturi/Create
         public IActionResult Create()
         {
-            ViewData["IdCarte"] = new SelectList(_context.Carti, "IdCarte", "IdCarte");
-            ViewData["IdUtilizator"] = new SelectList(_context.Utilizatori, "IdUtilizator", "IdUtilizator");
+            ViewData["IdCarte"] = new SelectList(_context.Carti, "IdCarte", "Titlu");
+            ViewData["IdUtilizator"] = new SelectList(_context.Utilizatori, "IdUtilizator", "NumeUtilizator");
             return View();
         }
 
@@ -60,15 +60,16 @@ namespace LibraryProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdImprumut,IdCarte,IdUtilizator,DataImprumut,DataReturnare,Status")] Imprumuturi imprumuturi)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(imprumuturi);
+
+            ViewData["IdCarte"] = new SelectList(_context.Carti, "IdCarte", "Titlu", imprumuturi.IdCarte);
+            ViewData["IdUtilizator"] = new SelectList(_context.Utilizatori, "IdUtilizator", "NumeUtilizator", imprumuturi.IdUtilizator);
+            
+
+            _context.Add(imprumuturi);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            ViewData["IdCarte"] = new SelectList(_context.Carti, "IdCarte", "IdCarte", imprumuturi.IdCarte);
-            ViewData["IdUtilizator"] = new SelectList(_context.Utilizatori, "IdUtilizator", "IdUtilizator", imprumuturi.IdUtilizator);
-            return View(imprumuturi);
+            
+            
         }
 
         // GET: Imprumuturi/Edit/5
@@ -84,8 +85,8 @@ namespace LibraryProject.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdCarte"] = new SelectList(_context.Carti, "IdCarte", "IdCarte", imprumuturi.IdCarte);
-            ViewData["IdUtilizator"] = new SelectList(_context.Utilizatori, "IdUtilizator", "IdUtilizator", imprumuturi.IdUtilizator);
+            ViewData["IdCarte"] = new SelectList(_context.Carti, "IdCarte", "Titlu", imprumuturi.IdCarte);
+            ViewData["IdUtilizator"] = new SelectList(_context.Utilizatori, "IdUtilizator", "NumeUtilizator", imprumuturi.IdUtilizator);
             return View(imprumuturi);
         }
 
@@ -101,29 +102,17 @@ namespace LibraryProject.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
+            ViewData["IdCarte"] = new SelectList(_context.Carti, "Titlu", "Titlu", imprumuturi.IdCarte);
+            ViewData["IdUtilizator"] = new SelectList(_context.Utilizatori, "IdUtilizator", "IdUtilizator", imprumuturi.IdUtilizator);
+
+            
                     _context.Update(imprumuturi);
                     await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ImprumuturiExists(imprumuturi.IdImprumut))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                
                 return RedirectToAction(nameof(Index));
-            }
-            ViewData["IdCarte"] = new SelectList(_context.Carti, "IdCarte", "IdCarte", imprumuturi.IdCarte);
-            ViewData["IdUtilizator"] = new SelectList(_context.Utilizatori, "IdUtilizator", "IdUtilizator", imprumuturi.IdUtilizator);
-            return View(imprumuturi);
+            
+            
+            
         }
 
         // GET: Imprumuturi/Delete/5
@@ -151,6 +140,7 @@ namespace LibraryProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+
             var imprumuturi = await _context.Imprumuturi.FindAsync(id);
             if (imprumuturi != null)
             {

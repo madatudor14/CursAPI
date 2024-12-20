@@ -138,6 +138,13 @@ namespace LibraryProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var hasUsed = _context.Utilizatori.Any(i => i.IdUtilizator == id);
+            if (hasUsed)
+            {
+                TempData["ErrorMessage"] = "Utilizatorul nu poate fi sters deoarece are carte imprumutata";
+                return RedirectToAction(nameof(Index));
+            }
+
             var utilizatori = await _context.Utilizatori.FindAsync(id);
             if (utilizatori != null)
             {

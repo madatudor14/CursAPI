@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using LibraryProject.Models;
 
 namespace LibraryProject.Models;
 
@@ -25,6 +26,7 @@ public partial class BibliotecaContext : DbContext
 
     public virtual DbSet<Utilizatori> Utilizatori { get; set; }
 
+    public virtual DbSet<ContactMessages> ContactMessages { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Server=localhost;Database=Biblioteca;Trusted_Connection=True;Encrypt=False");
@@ -110,4 +112,6 @@ public partial class BibliotecaContext : DbContext
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+public DbSet<LibraryProject.Models.Users> Users { get; set; } = default!;
 }

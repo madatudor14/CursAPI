@@ -23,10 +23,10 @@
                 @Html.DisplayNameFor(model => model.Status)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdCarteNavigation)
+                @Html.DisplayNameFor(model => model.IdCarteNavigation.Titlu)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdUtilizatorNavigation)
+                @Html.DisplayNameFor(model => model.IdUtilizatorNavigation.NumeUtilizator)
             </th>
             <th></th>
         </tr>
@@ -44,10 +44,10 @@
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdCarteNavigation.IdCarte)
+                @Html.DisplayFor(modelItem => item.IdCarteNavigation.Titlu)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdUtilizatorNavigation.IdUtilizator)
+                @Html.DisplayFor(modelItem => item.IdUtilizatorNavigation.NumeUtilizator)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.IdImprumut">Edit</a> |
@@ -55,6 +55,7 @@
                 <a asp-action="Delete" asp-route-id="@item.IdImprumut">Delete</a>
             </td>
         </tr>
+            
 }
     </tbody>
 </table>
